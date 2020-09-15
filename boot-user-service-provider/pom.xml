@@ -31,7 +31,6 @@
             <version>0.2.0</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
