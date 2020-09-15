@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!--提供方应用信息-->
+    <dubbo:application name="userserviceprovider"/>
+    <!--暴露服务的地址-->
+    <!-- protocol代表使用的协议,address代表使用的地址 -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <!--<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>-->
+    <!--暴露服务的端口-->
+    <!-- 指定通信规则
+              通信协议 详见协议参考手册
+              通信端口 通信端口随便写只要不被占用 -->
+    <dubbo:protocol name="dubbo" port="20880"/>
+    <!--声明要暴露的服务接口名 , ref指向真正的实现对象-->
+    <dubbo:service interface="com.itheima.service.UserService" ref="userService">
+        <dubbo:method name="getUserAddressList" timeout="2000"/>
+    </dubbo:service>
+    <!--服务的实现-->
+    <bean id="userService" class="com.itheima.service.impl.UserServiceImpl"/>
+    <!--为了能从监控中心查看到调用的情况,提供者和消费者都需要配置监控中心的地址-->
+    <dubbo:monitor protocol="registry"/>
+</beans>

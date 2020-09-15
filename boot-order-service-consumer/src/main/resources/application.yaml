@@ -1,0 +1,17 @@
+dubbo:
+  application:
+    name: boot-order-service-consumer
+  registry:
+    protocol: zookeeper
+    address: 127.0.0.1:2181
+  monitor:
+    protocol: registry
+  consumer:
+    check: false
+
+
+
+server:
+  port: 80
+  servlet:
+    context-path: /

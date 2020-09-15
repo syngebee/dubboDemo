@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--消费者姓名-->
+    <dubbo:application name="orderserviceconsumer"/>
+    <!--取注册中心发现服务地址-->
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+    <!--生成服务代理-->
+    <dubbo:reference interface="com.itheima.service.UserService" id="userService"/>
+    <!--为了注入代理对象使用-->
+    <context:component-scan base-package="com.itheima.service.impl"/>
+    <!--监控中心的地址配置-->
+        <!--从注册中心发现-->
+    <dubbo:monitor protocol="registry"/>
+        <!--直连-->
+    <!--<dubbo:monitor address="127.0.0.1:7070"/>-->
+</beans>
